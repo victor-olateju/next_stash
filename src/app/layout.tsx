@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { Navigation } from "./components/navigation";
+
+import {
+  ClerkProvider
+} from '@clerk/nextjs'
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -23,13 +28,27 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
+
+  const header_footer = "bg-slate-900 p-4 text-white text-center"
+
+  return <ClerkProvider>
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+
+        <header className={header_footer}>
+          {/* <p>Welcome to Next Crash</p> */}
+          <Navigation />
+        </header>
+
+
         {children}
+
+        <footer className={header_footer}>
+          Victor Olateju
+        </footer>
       </body>
     </html>
-  );
+  </ClerkProvider>
 }
